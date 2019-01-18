@@ -2,11 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+
+	"./api"
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -15,6 +18,7 @@ import (
 func HandlePicture(msg *tgbotapi.Message) {
 	photo := *msg.Photo
 
+	// Get Photo with max resolution
 	r1, err := http.Get("https://api.telegram.org/bot" + Token +
 		"/getFile?file_id=" + photo[2].FileID)
 	if err != nil {
@@ -57,6 +61,12 @@ func HandlePicture(msg *tgbotapi.Message) {
 		return
 	}
 
+	file1, err := os.Open("/tmp/aaaaa.jpg")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer file.Close()
+
 	// Try upload image to Blog
-	UploadImage()
+	api.UploadImage(file1, "/tmp/aaaaa.jpg")
 }

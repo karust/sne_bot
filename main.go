@@ -69,7 +69,7 @@ func main() {
 			msg.Text = "Send me Photo to publish 🥳"
 		}
 
-		if update.Message.Photo != nil { //Тут мы проверяем, а не прислали ли нам изображение
+		if update.Message.Photo != nil {
 			HandlePicture(update.Message)
 			msg.Text = "Got it. Trying to publish 👌🏻"
 		}
